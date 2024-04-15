@@ -8,14 +8,14 @@
     </Appenders>
 
     <loggers>
-        <logger name="org.springframework" level="INFO" additibity="false">
-            <append-ref ref="CONSOLE" />
+        <logger name="org.springframework" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE" />
         </logger>
 <!--        <logger name="org.springframework" level="INFO" additivity="false">-->
 <!--            <AppenderRef ref="CONSOLE" />-->
 <!--        </logger>-->
-        <logger name="org.fullstack4" level="INFO" additibity="false">
-            <append-ref ref="CONSOLE" />
+        <logger name="org.fullstack4" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE" />
         </logger>
         <root level="INFO" additivity="false">
             <AppenderRef ref="CONSOLE"/>

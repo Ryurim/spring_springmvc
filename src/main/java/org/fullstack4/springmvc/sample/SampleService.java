@@ -41,4 +41,6 @@ public class SampleService {
     // 운영에 올라가서 그 메서드를 호출할 때 오류 띄워짐(런타임 시점에)
     private final SampleDAO sampleDAO; //컴파일 시점에 static 영역으로 이동하는 final
 
+
+
 }
