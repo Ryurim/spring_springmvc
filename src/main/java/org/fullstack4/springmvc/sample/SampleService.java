@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 @ToString
 @Service
 @RequiredArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 // 클래스 단에서 선언되어있는 애들은 보통 클래스가 생성되는 시점에 의존성 주입
 // 해당 클래스가 컴파일 되는 시점에 annotation 동작함. 오류사항이 있으면 컴파일 시점에 오류 띄워짐
 // 딱 그놈한테만 영향받는 놈이면 메서드 단에서,,
