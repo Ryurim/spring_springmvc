@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 //@ToString
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Service;
 
 @ToString
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor //파라미터가 있는 생성자를 반드시 만들어서 써야해
 //@NoArgsConstructor
 //@AllArgsConstructor
 // 클래스 단에서 선언되어있는 애들은 보통 클래스가 생성되는 시점에 의존성 주입
@@ -39,6 +40,8 @@ public class SampleService {
 
     // 메서드 단에서 선언되는 애들은 해당 메서드를 호출하는 시점에 의존성 주입
     // 운영에 올라가서 그 메서드를 호출할 때 오류 띄워짐(런타임 시점에)
+    @Qualifier("event")
+    //@Autowired
     private final SampleDAO sampleDAO; //컴파일 시점에 static 영역으로 이동하는 final
 
 
