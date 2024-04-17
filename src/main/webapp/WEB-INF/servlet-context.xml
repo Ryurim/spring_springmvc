@@ -26,6 +26,16 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 위에 xmlns에 context 있어야해! (네임스페이스) -->
+    <!-- 위에 xmlns에 context 있어야해! (네임스페이스) 시작할 때 자동으로 불러와라 -->
     <context:component-scan base-package="org.fullstack4.springmvc.controller"/>
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="org.fullstack4.springmvc.controller.formatter.LocalDateFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 </beans>
