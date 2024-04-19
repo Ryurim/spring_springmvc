@@ -105,10 +105,12 @@
             <div class="form-floating">
                 <input type="text" class="form-control"  name="user_id" id="user_id" value="" maxlength="20" placeholder="ID">
                 <label for="user_id" >ID</label>
+                <div id="div_err_user_id" style="display: none"></div>
             </div>
             <div class="form-floating">
                 <input type="password" class="form-control" name="pwd" id="pwd" value="" maxlength="20" placeholder="Password">
                 <label for="pwd" >Password</label>
+                <div id="div_err_pwd" style="display: none"></div>
             </div>
             <div id="div_err" style="display: none"></div>
             <div class="checkbox mb-3">
@@ -143,13 +145,13 @@
         }, false);
 
         const serverValidResult = {}; //JSON 객체 빈값으로 선언
-
-        <c:if test="${not empty errors}">
-            document.getElementById("div_err").innerHTML = "<span style='color:red'>${errors.defaultMessage} </span>";
-            document.getElementById("div_err").style.display = "block";
-        </c:if>
-        serverValidResult['${errors}'] = '${errors.defaultMessage}';
-
+        <c:forEach items="${errors}" var="err">
+        if (document.getElementById("div_err_${err.getField()}") != null) {
+            document.getElementById("div_err_${err.getField()}").innerHTML = "<span style='color:red'>${err.getField()} 필드는 ${err.defaultMessage}</span>";
+            document.getElementById("div_err_${err.getField()}").style.display = "block";
+        }
+        serverValidResult['${err.getField()}'] = '${err.defaultMessage}';
+        </c:forEach>
 
         console.log(serverValidResult);
 
