@@ -11,40 +11,86 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <title>게시글 등록</title>
+
 </head>
 <body>
-    <h1>BBS >> REGIST</h1>
+<jsp:include page="../header.jsp"/>
 
-    <form id="frmRegist" name="frmRegist" method="post" action="/bbs/regist">
-        <div>
-            <span>아이디 : </span> <input type="text" id="user_id" name="user_id" value="${bbsDTO.user_id}" maxlength="20">
-            <div id="div_err_user_id" style="display: none"></div>
-        </div>
-        <div>
-            <span>제목 : </span> <input type="text" id="title" name="title" value="${bbsDTO.title}" maxlength="100">
-            <div id="div_err_title" style="display: none"></div>
-        </div>
-        <div>
-            <span>내용 : </span> <textarea name="content" id="content" rows="10" cols="60">${bbsDTO.content}</textarea>
-            <div id="div_err_content" style="display: none"></div>
-        </div>
-        <div>
-            <span>출력날짜 : </span> <input type="date" id="display_date" name="display_date" value="${bbsDTO.display_date}" maxlength="10">
-        </div>
-        <div>
-            <span>관심항목 : </span>
-            <span>스포츠</span><input type="checkbox" id="interest_0" name="interest" value="스포츠">
-            <span>여행</span><input type="checkbox" id="interest_1" name="interest" value="여행">
-            <span>영화</span><input type="checkbox" id="interest_2" name="interest" value="영화">
-            <span>음악</span><input type="checkbox" id="interest_3" name="interest" value="음악">
-            <div id="div_err_interest" style="display: none"></div>
-        </div>
+    <div class="container">
 
-        <div>
-            <button type="submit">글등록</button>
-        </div>
-    </form>
+        <form id="frmRegist" name="frmRegist" method="post" action="/bbs/regist">
+            <div class="row mb-3">
+                <label for="user_id" class="col-sm-2 col-form-label">아이디</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="user_id" name="user_id" readonly value="${loginInfo.user_id}">
+                    <div id="div_err_user_id" style="display: none"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="title" class="col-sm-2 col-form-label">제목</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="title" name="title" value="${bbsDTO.title}">
+                    <div id="div_err_title" style="display: none"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="content" class="col-sm-2 col-form-label">내용</label>
+                <div class="col-sm-10">
+                    <textarea  class="form-control" name="content" id="content" rows="10" cols="60">${bbsDTO.content}</textarea>
+                    <div id="div_err_content" style="display: none"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="display_date" class="col-sm-2 col-form-label">출력날짜</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control form-control-lg"  id="display_date" name="display_date" value="${bbsDTO.display_date}" ></input>
+                </div>
+            </div>
+
+            <label  class="col-sm-2 col-form-label">관심사항</label>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="interest_0" name="interest" value="스포츠">
+                        <label class="form-check-label" for="interest_0">
+                            스포츠
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox"  id="interest_1" name="interest" value="여행">
+                        <label class="form-check-label" for="interest_1">
+                            여행
+                        </label>
+                    </div>
+
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="interest_2" name="interest" value="영화">
+                        <label class="form-check-label" for="interest_2">
+                            영화
+                        </label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="interest_3" name="interest" value="음악">
+                        <label class="form-check-label" for="interest_3">
+                            음악
+                        </label>
+                    </div>
+
+                <div id="div_err_interest" style="display: none"></div>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="submit" class="btn btn-primary">등록하기</button>
+            <button type="reset" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">돌아가기</button>
+            </div>
+        </form>
+
+    </div>
 
     <script>
         const serverValidResult = {}; //JSON 객체 빈값으로 선언
@@ -58,8 +104,9 @@
 
         console.log(serverValidResult);
     </script>
-<div class="card-body">
 
-</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </body>
 </html>

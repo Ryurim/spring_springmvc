@@ -22,8 +22,11 @@ public class LoginServiceImpl implements LoginServiceIf{
     public MemberDTO login_info(String id, String pwd) {
         log.info("====================================");
         log.info("LoginServiceImpl >> login_info(id, pwd) : " + id + ", " + pwd);
-        MemberVO memberVO = loginXmlMapper.login_info(id, pwd); //쿼리를 날려서 value를 memberVO 객체에 넣는다
-        log.info("LoginServiceImpl >> login_info(id, pwd) >> memberVO : " + memberVO.toString());
+        MemberVO memberVO = null;
+        if (id != null && id != "" && pwd != "" && pwd != null) {
+            memberVO = loginXmlMapper.login_info(id, pwd); //쿼리를 날려서 value를 memberVO 객체에 넣는다
+            log.info("LoginServiceImpl >> login_info(id, pwd) >> memberVO : " + memberVO.toString());
+        }
 
         MemberDTO memberDTO = null;
         if (memberVO != null && memberVO.getPwd().equals(pwd)) { //db에서 갖고온 객체가 존재할 때만 매핑

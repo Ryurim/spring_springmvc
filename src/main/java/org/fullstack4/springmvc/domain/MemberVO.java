@@ -15,6 +15,7 @@ public class MemberVO {
     private String user_id;
     private String name;
     private String pwd;
+    private String email;
     private String jumin;
     private String addr1;
     private String addr2;
@@ -26,4 +27,5 @@ public class MemberVO {
     private LocalDate modify_date;
     private LocalDate pwd_change_date;
     private LocalDate leave_date;
+    private String interest;
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.springmvc.mapper.MemberMapper">
+    <insert id="regist">
+        insert into tbl_member ( user_id, pwd, name, email, birthday, interest, addr1, addr2, reg_date )
+        values( #{user_id}, #{pwd}, #{name}, #{email}, #{birthday}, #{interest}, #{addr1}, #{addr2}, now())
+    </insert>
+
+    <update id="modify">
+        update tbl_member set pwd=#{title},
+                           name=#{content},
+                           email=#{email},
+                           interest=#{interest},
+                           addr1=#{addr1},
+                           addr2=#{addr2}
+        where user_id=#{user_id}
+    </update>
+
+    <select id="view" resultType="org.fullstack4.springmvc.domain.BbsVO">
+        select user_id, pwd, name, email, birthday, interest, addr1, addr2
+        from tbl_member
+        where user_id=#{user_id}
+    </select>
+
+    <delete id="delete">
+        delete from tbl_member
+        where user_id=#{user_id}
+    </delete>
+
+</mapper>
