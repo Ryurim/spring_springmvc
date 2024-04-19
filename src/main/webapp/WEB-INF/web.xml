@@ -13,6 +13,20 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- 한글 인코딩 필터 설정 -->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <servlet-name>appServlet</servlet-name>
+    </filter-mapping>
+    <!-- //한글 인코딩 필터 설정 -->
 
     <!-- 서블릿마다 web.xml 에 추가해주는거 귀찮아 스프링 너가 해줘 -->
     <servlet>

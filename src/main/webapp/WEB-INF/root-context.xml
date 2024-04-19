@@ -9,7 +9,7 @@
                             http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 <!--    <bean class="org.fullstack4.springmvc.sample.SampleDAO" />-->
 <!--    <bean class="org.fullstack4.springmvc.sample.SampleService" />-->
-<!--    <context:component-scan base-package="org.fullstack4.springmvc.sample"/>-->
+    <context:component-scan base-package="org.fullstack4.springmvc.sample"/>
 
     <!--
     HikariConfig hikariConfig = new HikariConfig() 랑 똑같음 !
@@ -39,7 +39,7 @@
     </bean>
 
     <!--MyBatis 설정 부분-->
-    <!-- SqlSessionFactoryBean sqlSFB = new SqlSessionFactoryBean(dataSource);-->
+    <!-- SqlSessionFactoryBean sqlSFB = new SqlSessionFactoryBean(dataSource); 와 같음 -->
     <bean id="sqlSFB" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:/mappers/**/*.xml"></property>
@@ -48,5 +48,7 @@
     <mybatis:scan base-package="org.fullstack4.springmvc.mapper"></mybatis:scan>
     <!--MyBatis 설정 부분-->
 
+    <!--이 경로 밑에 컴포넌트화 할 수 있는 애들을 싹 다 뒤져서 빈으로 알아서 등록해줘 -->
     <context:component-scan base-package="org.fullstack4.springmvc.config"/>
+    <context:component-scan base-package="org.fullstack4.springmvc.service"/>
 </beans>
