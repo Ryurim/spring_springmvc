@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <th scope="row">내용</th>
-                <td>${bbs.content}</td>
+                <td><textarea class="form-control"  cols="30" rows="10" readonly>${bbs.content}</textarea> </td>
                 <td> </td>
                 <td> </td>
             </tr>

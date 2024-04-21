@@ -9,6 +9,6 @@ public interface MemberMapper {
 
     int delete(String user_id);
 
-    boolean getOneByEmail(String email);
-    boolean getOneByNickname(String nickname);
+//    int getOneByEmail(String email);
+//    int getOneByUserId(String nickname);
 }

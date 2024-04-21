@@ -72,6 +72,9 @@ public class MemberController {
 
         int result = memberServiceIf.regist(memberDTO);
 
+//        int result2 = memberServiceIf.getOneByEmail(memberDTO.getEmail());
+//        int result3 = memberServiceIf.getOneByUserId(memberDTO.getUser_id());
+
         log.info("registResult : " + result);
         log.info("============================");
 

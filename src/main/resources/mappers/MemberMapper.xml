@@ -29,15 +29,15 @@
         where user_id=#{user_id}
     </delete>
 
-    <select id="getOneByEmail" resultType="boolean">
-        select count(*)
-        from tbl_bbs
-        where email=#{email}
-    </select>
+<!--    <select id="getOneByEmail" resultType="Integer">-->
+<!--        select count(*)-->
+<!--        from tbl_bbs-->
+<!--        where email=#{email}-->
+<!--    </select>-->
 
-    <select id="getOneByUserId" resultType="boolean">
-        select count(*)
-        from tbl_bbs
-        where user_id = #{user_id}
-    </select>
+<!--    <select id="getOneByUserId" resultType="Integer">-->
+<!--        select count(*)-->
+<!--        from tbl_bbs-->
+<!--        where user_id = #{user_id}-->
+<!--    </select>-->
 </mapper>

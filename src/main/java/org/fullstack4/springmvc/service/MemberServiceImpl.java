@@ -67,6 +67,28 @@ public class MemberServiceImpl implements MemberServiceIf{
         log.info("========================================================");
         return result;
     }
+//
+//    @Override
+//    public int getOneByEmail(String email) {
+//        log.info("========================================================");
+//        log.info("MemberServiceImpl >> getOneByEmail(email) : " + email);
+//
+//        int result = memberMapper.getOneByEmail(email);
+//
+//        log.info("========================================================");
+//        return result;
+//    }
+//
+//    @Override
+//    public int getOneByUserId(String nickname) {
+//        log.info("========================================================");
+//        log.info("MemberServiceImpl >> getOneByUserId(email) : " + nickname);
+//
+//        int result = memberMapper.getOneByUserId(nickname);
+//
+//        log.info("========================================================");
+//        return result;
+//    }
 
 
 }
