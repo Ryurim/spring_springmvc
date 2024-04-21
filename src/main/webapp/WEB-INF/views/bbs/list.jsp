@@ -131,10 +131,15 @@
             </div>
         </a>
         </c:forEach>
+        <div class="row footer">
+            <!--h1>Footer</h1-->
+            <div class="row fixed-=bottom" style="z-index: -100">
+                <footer class="py-1 my-1">
+                    <p class="text-center text-muted">footer</p>
+                </footer>
+            </div>
+        </div>
     </div>
-    <ul>
-        <li><a href="/login/login">로그인</a></li>
-    </ul>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 

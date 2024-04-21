@@ -27,6 +27,8 @@
 <div class="container-fluid">
   <div class="row">
     <!--h1>Header</h1-->
+    <div class="row">
+      <div class="col">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -51,6 +53,10 @@
         </div>
       </div>
     </nav>
+    </div>
+  </div>
+  <div class="row content">
+    <div class="col">
     <div class="card">
       <div class="card-header">
         Featured
@@ -62,6 +68,8 @@
       </div>
     </div>
   </div>
+  </div>
+</div>
   <div class="row content">
     <h1>Content</h1>
   </div>

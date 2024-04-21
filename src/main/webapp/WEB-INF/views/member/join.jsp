@@ -39,14 +39,14 @@
         <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label">이름</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="name" name="name" value="${memberDTO.pwd}">
+                <input type="text" class="form-control" id="name" name="name" value="${memberDTO.name}">
                 <div id="div_err_name" style="display: none"></div>
             </div>
         </div>
         <div class="row mb-3">
             <label for="pwd" class="col-sm-2 col-form-label">이메일</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" name="email" value="${memberDTO.pwd}">
+                <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}">
                 <div id="div_err_email" style="display: none"></div>
             </div>
         </div>
@@ -61,14 +61,14 @@
         <div class="row mb-3">
             <label for="addr1" class="col-sm-2 col-form-label">주소1</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="addr1" name="addr1" value="${memberDTO.pwd}">
+                <input type="text" class="form-control" id="addr1" name="addr1" value="${memberDTO.addr1}">
                 <div id="div_err_addr1" style="display: none"></div>
             </div>
         </div>
         <div class="row mb-3">
             <label for="addr2" class="col-sm-2 col-form-label">주소2</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="addr2" name="addr2" value="${memberDTO.pwd}">
+                <input type="text" class="form-control" id="addr2" name="addr2" value="${memberDTO.addr2}">
                 <div id="div_err_addr2" style="display: none"></div>
             </div>
         </div>
@@ -76,13 +76,13 @@
         <label  class="col-sm-2 col-form-label">관심사항</label>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="interest_0" name="interest" value="스포츠">
+            <input class="form-check-input" type="checkbox" id="interest_0" name="interest" value="스포츠" <c:if test="${memberDTO.interest.contains('스포츠')}">checked</c:if>>
             <label class="form-check-label" for="interest_0">
                 스포츠
             </label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox"  id="interest_1" name="interest" value="여행">
+            <input class="form-check-input" type="checkbox"  id="interest_1" name="interest" value="여행"  <c:if test="${memberDTO.interest.contains('여행')}">checked</c:if>>
             <label class="form-check-label" for="interest_1">
                 여행
             </label>
@@ -90,14 +90,14 @@
 
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="interest_2" name="interest" value="영화">
+            <input class="form-check-input" type="checkbox" id="interest_2" name="interest" value="영화"  <c:if test="${memberDTO.interest.contains('영화')}">checked</c:if>>
             <label class="form-check-label" for="interest_2">
                 영화
             </label>
         </div>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="interest_3" name="interest" value="음악">
+            <input class="form-check-input" type="checkbox" id="interest_3" name="interest" value="음악"  <c:if test="${memberDTO.interest.contains('음악')}">checked</c:if>>
             <label class="form-check-label" for="interest_3">
                 음악
             </label>
@@ -105,9 +105,11 @@
 
         <div id="div_err_interest" style="display: none"></div>
 
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <div class="my-4">
+            <div class="float-end">
             <button type="submit" class="btn btn-primary">회원가입</button>
             <button type="reset" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">돌아가기</button>
+        </div>
         </div>
     </form>
 

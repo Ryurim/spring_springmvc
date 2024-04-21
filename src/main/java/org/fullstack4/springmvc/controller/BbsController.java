@@ -74,16 +74,6 @@ public class BbsController {
         log.info("============================");
         log.info("BbsController >> registPOST()");
 
-//        log.info("user_id : " + bbsDTO.getUser_id());
-//        log.info("title : " + bbsDTO.getTitle());
-//        log.info("display_date : " + bbsDTO.getDisplay_date());
-
-//
-//        //url에 쿼리스트링을 넣어줌
-//        redirectAttributes.addAttribute("key1", "v1");
-
-//        //딱 한번 쓰고 버려. url에는 보여주지 마. url에는 안보이고 redirect 되는 곳에는 받아짐! ex)밸리데이터 처리할 때 등등 사용함. 처리는 하되 아무것도 안보이게 하고싶어! 할 때 사용
-//        redirectAttributes.addFlashAttribute("key2", "v2");
 
         if (bindingResult.hasErrors()) { //array 객체 형태로 저장됨
             log.info("Errors");

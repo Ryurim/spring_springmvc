@@ -4,7 +4,10 @@ import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import org.checkerframework.checker.units.qual.N;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Log4j2
@@ -26,6 +29,9 @@ public class MemberDTO {
     private String addr2;
     @NotBlank
     private String birthday;
+    @NotBlank
+    @Email
+    private String email;
     private String job_code;
     private int mileage;
     private String user_state;
@@ -34,5 +40,5 @@ public class MemberDTO {
     private LocalDate pwd_change_date;
     private LocalDate leave_date;
     private String interest;
-    private String email;
+
 }

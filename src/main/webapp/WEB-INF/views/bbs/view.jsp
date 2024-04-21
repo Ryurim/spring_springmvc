@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: db400tea
@@ -19,41 +20,16 @@
 <body>
 <jsp:include page="../header.jsp"/>
 
-<%--    <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">--%>
-<%--        <input type="hidden" name="idx" id = "idx" value="${bbs.idx}">--%>
-
-<%--    <div>--%>
-<%--        <span>인덱스 : ${bbs.idx}</span>--%>
-<%--    </div>--%>
-<%--    <div>--%>
-<%--        <span>아이디 : ${bbs.user_id}</span>--%>
-<%--    </div>--%>
-<%--    <div>--%>
-<%--        <span>제목 : ${bbs.title}</span>--%>
-<%--    </div>--%>
-<%--    <div>--%>
-<%--        <span>내용 : ${bbs.content}</span>--%>
-<%--    </div>--%>
-<%--    <div>--%>
-<%--        <span>출력날짜 : ${bbs.display_date}</span>--%>
-<%--    </div>--%>
-<%--        <div>--%>
-<%--            <span>관심사항 : ${bbs.interest}</span>--%>
-<%--        </div>--%>
-<%--    <div>--%>
-<%--        <button type="button" onclick="location.href='/bbs/list'">목록</button>--%>
-<%--        <button type="button" onclick="location.href='/bbs/modify?idx=${bbs.idx}'">수정</button>--%>
-<%--        <button type="button" onclick="goDelete()">삭제</button>--%>
-<%--    </div>--%>
-<%--    </form>--%>
 <div class="container">
     <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
         <input type="hidden" name="idx" id = "idx" value="${bbs.idx}">
         <table class="table" height="20%">
             <tbody>
             <tr>
-                <th width="10%" scope="row" >아이디</th>
+                <th scope="row" >아이디</th>
                 <td > ${bbs.user_id}</td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <th scope="row">제목</th>
@@ -77,8 +53,10 @@
         </table>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <button type="button" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">목록</button>
+            <c:if test="${bbs.user_id eq loginInfo.user_id}">
             <button type="button" class="btn btn-primary" onclick="location.href='/bbs/modify?idx=${bbs.idx}'">수정</button>
             <button type="button" class="btn btn-outline-secondary" onclick="goDelete();">삭제</button>
+            </c:if>
         </div>
 
     </form>

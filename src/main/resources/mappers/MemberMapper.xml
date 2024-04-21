@@ -9,8 +9,8 @@
     </insert>
 
     <update id="modify">
-        update tbl_member set pwd=#{title},
-                           name=#{content},
+        update tbl_member set pwd=#{pwd},
+                           name=#{name},
                            email=#{email},
                            interest=#{interest},
                            addr1=#{addr1},
@@ -18,7 +18,7 @@
         where user_id=#{user_id}
     </update>
 
-    <select id="view" resultType="org.fullstack4.springmvc.domain.BbsVO">
+    <select id="view" resultType="org.fullstack4.springmvc.domain.MemberVO">
         select user_id, pwd, name, email, birthday, interest, addr1, addr2
         from tbl_member
         where user_id=#{user_id}
@@ -29,4 +29,15 @@
         where user_id=#{user_id}
     </delete>
 
+    <select id="getOneByEmail" resultType="boolean">
+        select count(*)
+        from tbl_bbs
+        where email=#{email}
+    </select>
+
+    <select id="getOneByUserId" resultType="boolean">
+        select count(*)
+        from tbl_bbs
+        where user_id = #{user_id}
+    </select>
 </mapper>

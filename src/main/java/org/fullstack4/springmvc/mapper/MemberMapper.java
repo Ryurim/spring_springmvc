@@ -8,4 +8,7 @@ public interface MemberMapper {
     MemberVO view(String user_id);
 
     int delete(String user_id);
+
+    boolean getOneByEmail(String email);
+    boolean getOneByNickname(String nickname);
 }

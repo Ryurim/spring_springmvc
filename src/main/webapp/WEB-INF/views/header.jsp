@@ -95,15 +95,15 @@
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <a href="#" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <img src="${pageContext.request.contextPath}/resources/img/pawprint.png" alt="dfhh">
+<%--                <img src="${pageContext.request.contextPath}/resources/img/pawprint.png" alt="dfhh">--%>
             </a>
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/bbs/list" class="nav-link px-2 link-secondary">Post Lists</a></li>
-                <li><a href="/bbs/regist" class="nav-link px-2 link-dark">Regist Post</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+                <li><c:if test="${not empty loginInfo}"><a href="/bbs/regist" class="nav-link px-2 link-dark">Regist Post</a></c:if></li>
+                <li><!--a href="#" class="nav-link px-2 link-dark">Pricing</a--></li>
+                <li><!--a href="#" class="nav-link px-2 link-dark">FAQs</a--></li>
+                <li><!--a-- href="#" class="nav-link px-2 link-dark">About</a--></li>
             </ul>
 
             <div class="col-md-3 text-end">
@@ -116,7 +116,16 @@
                     </c:otherwise>
                 </c:choose>
 
-                <button type="button" class="btn btn-primary" onclick="location.href='/member/join'">Sign-up</button>
+                <c:choose>
+                    <c:when test="${not empty loginInfo}">
+                        <button type="button" class="btn btn-primary" onclick="location.href='/member/view'">MyPage</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="button" class="btn btn-primary" onclick="location.href='/member/join'">Sign-up</button>
+                    </c:otherwise>
+                </c:choose>
+
+
             </div>
         </header>
     </div>

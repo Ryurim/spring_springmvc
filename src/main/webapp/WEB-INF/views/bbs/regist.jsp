@@ -48,7 +48,7 @@
             <div class="row mb-3">
                 <label for="display_date" class="col-sm-2 col-form-label">출력날짜</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control form-control-lg"  id="display_date" name="display_date" value="${bbsDTO.display_date}" ></input>
+                    <input type="date" class="form-control"  id="display_date" name="display_date" value="${bbsDTO.display_date}" ></input>
                 </div>
             </div>
 
@@ -84,9 +84,12 @@
 
                 <div id="div_err_interest" style="display: none"></div>
 
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <div class="my-4">
+                <div class="float-end">
             <button type="submit" class="btn btn-primary">등록하기</button>
             <button type="reset" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">돌아가기</button>
+
+                </div>
             </div>
         </form>
 

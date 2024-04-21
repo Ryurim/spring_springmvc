@@ -13,27 +13,74 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>BBS >> VIEW</h1>
+<jsp:include page="../header.jsp"/>
+<div class="container">
+    <form name="frmDelete" id="frmDelete" method="post" action="/member/delete">
+        <input type="hidden" name="user_id" value="${loginInfo.user_id}">
+        <table class="table" height="20%">
+            <tbody>
+            <tr>
+                <th scope="row" >아이디</th>
+                <td > ${memberDTO.user_id}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <th scope="row">이름</th>
+                <td> ${memberDTO.name}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <th scope="row">이메일</th>
+                <td>${memberDTO.email}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <th scope="row">생년월일</th>
+                <td> ${memberDTO.birthday}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <th scope="row">주소</th>
+                <td> ${memberDTO.addr1}&nbsp;${memberDTO.addr2}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <th scope="row">관심사항</th>
+                <td> ${memberDTO.interest}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">목록</button>
 
-    <div>
-        <span>인덱스 : ${bbs.idx}</span>
-    </div>
-    <div>
-        <span>아이디 : ${bbs.user_id}</span>
-    </div>
-    <div>
-        <span>제목 : ${bbs.title}</span>
-    </div>
-    <div>
-        <span>내용 : ${bbs.content}</span>
-    </div>
-    <div>
-        <span>출력날짜 : ${bbs.display_date}</span>
-    </div>
-    <div>
-        <button type="button" onclick="location.href='/bbs/list'">목록</button>
-        <button type="button" onclick="location.href='/bbs/modify?idx=${bbs.idx}'">수정</button>
-        <button type="button" onclick="location.href='/bbs/delete?idx=${bbs.idx}'">삭제</button>
-    </div>
+                <button type="button" class="btn btn-primary" onclick="location.href='/member/modify?user_id=${memberDTO.user_id}'">수정</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="goDelete();">회원탈퇴</button>
+
+        </div>
+
+    </form>
+</div>
+<script>
+    function goDelete() {
+        const frm = document.getElementById("frmDelete");
+        let confirm_flag = confirm("탈퇴 하시겠습니까?\n");
+        if (confirm_flag) {
+            frm.submit();
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossOrigin="anonymous"></script>
+
+
 </body>
 </html>

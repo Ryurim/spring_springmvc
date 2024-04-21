@@ -81,6 +81,7 @@
     </style>
 </head>
 <body class="text-center">
+
 <%--    <form name="frmLogin" id="frmLogin" method="post" action="/login/login">--%>
 <%--        <input type="text" name="referer" id="referer" value="${acc_url}">--%>
 <%--        <div>--%>
@@ -103,7 +104,7 @@
                 <input type="hidden" class="form-control" name="referer" id="referer" value="${acc_url}">
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control"  name="user_id" id="user_id" value="" maxlength="20" placeholder="ID">
+                <input type="text" class="form-control"  name="user_id" id="user_id" value="${cookie.user_id.value}" maxlength="20" placeholder="ID">
                 <label for="user_id" >ID</label>
                 <div id="div_err_user_id" style="display: none"></div>
             </div>
@@ -115,7 +116,7 @@
             <div id="div_err" style="display: none"></div>
             <div class="checkbox mb-3">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="save_id" id="save_id" value="Y">
+                    <input class="form-check-input" type="checkbox" name="save_id" id="save_id" value="Y" ${cookie.save_id.value}>
                     <label class="form-check-label" for="save_id">
                         아이디 저장
                     </label>
@@ -128,7 +129,8 @@
                 </div>
             </div>
                 <button type="submit"  class="w-100 btn btn-lg btn-primary" id="btnLogin">로그인</button>
-
+                <p></p>
+                <button type="reset" onclick="location.href='/member/join'"  class="w-100 btn btn-lg btn-secondary" id="btnLogin">회원가입</button>
         </form>
     </main>
 

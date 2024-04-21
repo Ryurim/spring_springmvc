@@ -62,7 +62,7 @@ public class MemberController {
 
         if (bindingResult.hasErrors()) {
             log.info("Errors");
-            redirectAttributes.addFlashAttribute("erros", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
 
             return "redirect:/member/join";
@@ -84,24 +84,60 @@ public class MemberController {
     }
 
     @GetMapping("/modify")
-    public void modifyGET() {
+    public void modifyGET(@RequestParam(name="user_id", defaultValue = "") String user_id,
+                          Model model) {
         log.info("============================");
         log.info("MemberController >> modifyGET()");
+
+        log.info("user_id : " + user_id);
+
+        model.addAttribute("memberDTO", memberServiceIf.view(user_id));
+
         log.info("============================");
     }
 
     @PostMapping("/modify")
-    public void modifyPOST() {
+    public String modifyPOST(@Valid MemberDTO memberDTO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
         log.info("============================");
         log.info("MemberController >> modifyPOST()");
+
+        if (bindingResult.hasErrors()) {
+            log.info("Errors");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
+
+            return "redirect:/member/modify?user_id=" + memberDTO.getUser_id();
+        }
+
+
+
+        int result = memberServiceIf.modify(memberDTO);
+        log.info("modifyResult : " + result);
         log.info("============================");
+        if (result > 0) {
+            return "redirect:/member/view?" + memberDTO.getUser_id();
+        } else {
+            return "redirect:/member/modify?user_id=" + memberDTO.getUser_id();
+        }
+
     }
 
-    @PostMapping("/leave")
-    public void leavePOST() {
+    @PostMapping("/delete")
+    public String leavePOST(@RequestParam(name="user_id", defaultValue = "") String user_id,
+                            HttpServletRequest req) {
         log.info("============================");
         log.info("MemberController >> leavePOST()");
         log.info("============================");
+        int result = memberServiceIf.delete(user_id);
+        if (result > 0) {
+            HttpSession session = req.getSession();
+            session.invalidate();
+            return "redirect:/bbs/list";
+        } else {
+            return "redirect:/member/view?user_id=" + user_id;
+        }
     }
 
 }

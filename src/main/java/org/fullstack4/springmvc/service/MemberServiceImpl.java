@@ -35,9 +35,9 @@ public class MemberServiceImpl implements MemberServiceIf{
 
     @Override
     public MemberDTO view(String user_id) {
-        MemberVO bbsVO = memberMapper.view(user_id);
-        MemberDTO bbsDTO = modelMapper.map(bbsVO, MemberDTO.class);
-        return bbsDTO;
+        MemberVO memberVO = memberMapper.view(user_id);
+        MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+        return memberDTO;
     }
 
     @Override
@@ -45,10 +45,10 @@ public class MemberServiceImpl implements MemberServiceIf{
         log.info("========================================================");
         log.info("MemberServiceImpl >> modify(bbsDTO) : " + memberDTO.toString());
 
-        MemberVO bbsVO = modelMapper.map(memberDTO, MemberVO.class);
-        int result = memberMapper.modify(bbsVO);
+        MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
+        int result = memberMapper.modify(memberVO);
 
-        log.info("MemberServiceImpl >> bbsVO : " + bbsVO.toString());
+        log.info("MemberServiceImpl >> bbsVO : " + memberVO.toString());
         log.info("MemberServiceImpl >> modifyResult : " + result);
         log.info("========================================================");
 
