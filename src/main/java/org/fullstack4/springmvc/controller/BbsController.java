@@ -90,48 +90,48 @@ public void list(@Valid PageRequestDTO pageRequestDTO,
     }
 
     @GetMapping("/regist")
-    public String registGET(HttpServletRequest req,
+    public void registGET(HttpServletRequest req,
                             Model model
                             ) {
         log.info("============================");
         log.info("BbsController >> registGET()");
 
 
-        String auto_user_id = "";
+//        String auto_user_id = "";
+//
+//        HttpSession session = req.getSession();
+//
+//        Cookie[] cookies = req.getCookies();
+//        for (Cookie c : cookies) {
+//            if (c.getName().equals("auto_user_id")) {
+//                auto_user_id = c.getValue();
+//            }
+//        }
+//
+//        if (auto_user_id != null) {
+//            MemberDTO loginMemberDTO = loginServiceIf.login_cookie(auto_user_id);
+//            if (loginMemberDTO != null) {
+//                model.addAttribute("member", loginMemberDTO);
+//                session.setAttribute("user_id", auto_user_id);
+//                session.setAttribute("loginInfo", loginMemberDTO);
+//
+//            }
+//        }
+//        if (auto_user_id == null || auto_user_id.equals("")) {
+//            if (session.getAttribute("user_id") != null) {
+//                model.addAttribute("acc_url", req.getHeader("referer"));
+//                return "/bbs/regist";
+//            } else {
+//                return "redirect:/login/login";
+//            }
+//        }
 
-        HttpSession session = req.getSession();
-
-        Cookie[] cookies = req.getCookies();
-        for (Cookie c : cookies) {
-            if (c.getName().equals("auto_user_id")) {
-                auto_user_id = c.getValue();
-            }
-        }
-
-        if (auto_user_id != null) {
-            MemberDTO loginMemberDTO = loginServiceIf.login_cookie(auto_user_id);
-            if (loginMemberDTO != null) {
-                model.addAttribute("member", loginMemberDTO);
-                session.setAttribute("user_id", auto_user_id);
-                session.setAttribute("loginInfo", loginMemberDTO);
-
-            }
-        }
-        if (auto_user_id == null || auto_user_id.equals("")) {
-            if (session.getAttribute("user_id") != null) {
-                model.addAttribute("acc_url", req.getHeader("referer"));
-                return "/bbs/regist";
-            } else {
-                return "redirect:/login/login";
-            }
-        }
-
-        else {
+//        else {
             model.addAttribute("acc_url", req.getHeader("referer"));
 
             log.info("==============================");
-            return "/bbs/regist";
-        }
+
+//        }
 
 
 
