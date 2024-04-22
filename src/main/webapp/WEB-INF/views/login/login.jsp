@@ -112,6 +112,7 @@
                 <input type="password" class="form-control" name="pwd" id="pwd" value="" maxlength="20" placeholder="Password">
                 <label for="pwd" >Password</label>
                 <div id="div_err_pwd" style="display: none"></div>
+                <div id="error_login" style="color: red">${error_login}</div>
             </div>
             <div id="div_err" style="display: none"></div>
             <div class="checkbox mb-3">

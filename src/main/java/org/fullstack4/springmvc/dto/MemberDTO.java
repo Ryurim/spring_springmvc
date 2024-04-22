@@ -4,10 +4,7 @@ import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import org.checkerframework.checker.units.qual.N;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Log4j2
@@ -27,8 +24,9 @@ public class MemberDTO {
     private String addr1;
     @NotBlank
     private String addr2;
-    @NotBlank
-    private String birthday;
+    @NotNull(message = "빈칸은 안됩니다.")
+    @PastOrPresent(message = "오늘보다 미래일 수 없습니다.")
+    private LocalDate birthday;
     @NotBlank
     @Email
     private String email;

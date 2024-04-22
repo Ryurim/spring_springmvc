@@ -4,8 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.domain.BbsVO;
 import org.fullstack4.springmvc.dto.BbsDTO;
+import org.fullstack4.springmvc.dto.MemberDTO;
+import org.fullstack4.springmvc.dto.PageRequestDTO;
+import org.fullstack4.springmvc.dto.PageResponseDTO;
 import org.fullstack4.springmvc.service.BbsServiceIf;
 import org.fullstack4.springmvc.service.BbsServiceImpl;
+import org.fullstack4.springmvc.service.LoginServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,23 +31,45 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BbsController {
     private final BbsServiceIf bbsServiceIf;
+    private final LoginServiceIf loginServiceIf;
 
 //    public BbsController(BbsServiceIf bbsServiceIf) { @RequiredArgsConstructor가 이거 해주는거야!
 //        this.bbsServiceIf = bbsServiceIf;
 //    }
 
-    @GetMapping("/list")
-    public void list(Model model) {
-        log.info("========================");
-        log.info("BbsController >> list()");
+//    @GetMapping("/list")
+//    public void list(Model model) {
+//        log.info("========================");
+//        log.info("BbsController >> list()");
+//
+//        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
+//
+//        model.addAttribute("bbsList", bbsDTOList);
+//
+//        log.info("========================");
+//
+//    }
+@GetMapping("/list")
+public void list(@Valid PageRequestDTO pageRequestDTO,
+                 BindingResult bindingResult,
+                 RedirectAttributes redirectAttributes,
+                 Model model) {
+    log.info("========================");
+    log.info("BbsController >> list() START");
+    log.info("pageRequestDTO : " + pageRequestDTO.toString());
 
-        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
-
-        model.addAttribute("bbsList", bbsDTOList);
-
-        log.info("========================");
-
+    if (bindingResult.hasErrors()) {
+        log.info("BbsController >> list Error");
+        redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
     }
+    PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+    model.addAttribute("responseDTO", responseDTO);
+
+
+    log.info("BbsController >> list() END");
+    log.info("========================");
+
+}
 
     @GetMapping("/view")
     public void view(@RequestParam(name="idx", defaultValue = "0") int idx,
@@ -61,11 +90,56 @@ public class BbsController {
     }
 
     @GetMapping("/regist")
-    public void registGET() {
+    public String registGET(HttpServletRequest req,
+                            Model model
+                            ) {
         log.info("============================");
         log.info("BbsController >> registGET()");
-        log.info("============================");
-    }
+
+
+        String auto_user_id = "";
+
+        HttpSession session = req.getSession();
+
+        Cookie[] cookies = req.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("auto_user_id")) {
+                auto_user_id = c.getValue();
+            }
+        }
+
+        if (auto_user_id != null) {
+            MemberDTO loginMemberDTO = loginServiceIf.login_cookie(auto_user_id);
+            if (loginMemberDTO != null) {
+                model.addAttribute("member", loginMemberDTO);
+                session.setAttribute("user_id", auto_user_id);
+                session.setAttribute("loginInfo", loginMemberDTO);
+
+            }
+        }
+        if (auto_user_id == null || auto_user_id.equals("")) {
+            if (session.getAttribute("user_id") != null) {
+                model.addAttribute("acc_url", req.getHeader("referer"));
+                return "/bbs/regist";
+            } else {
+                return "redirect:/login/login";
+            }
+        }
+
+        else {
+            model.addAttribute("acc_url", req.getHeader("referer"));
+
+            log.info("==============================");
+            return "/bbs/regist";
+        }
+
+
+
+}
+
+
+
+
 
     @PostMapping("/regist")
     public String registPOST(@Valid BbsDTO bbsDTO, //dto 객체에 어노테이션 되어있는 애들만 체크해서 기본메세지 던져줌!
@@ -100,13 +174,60 @@ public class BbsController {
 
     @GetMapping("/modify")
     public void modifyGET(@RequestParam(name="idx", defaultValue = "0") int idx,
+                          HttpServletRequest req,
                           Model model) {
         log.info("============================");
         log.info("BbsController >> modifyGET()");
 
         log.info("idx : " + idx);
 
-
+//        String auto_user_id = "";
+//
+//        HttpSession session = req.getSession();
+//
+//        Cookie[] cookies = req.getCookies();
+//        for (Cookie c : cookies) {
+//            if (c.getName().equals("auto_user_id")) {
+//                auto_user_id = c.getValue();
+//            }
+//        }
+//
+//        if (auto_user_id != null) {
+//            MemberDTO loginMemberDTO = loginServiceIf.login_cookie(auto_user_id);
+//            if (loginMemberDTO != null) {
+//                model.addAttribute("member", loginMemberDTO);
+//                session.setAttribute("user_id", auto_user_id);
+//                session.setAttribute("loginInfo", loginMemberDTO);
+//
+//            }
+//        }
+//        if (auto_user_id == null || auto_user_id.equals("")) {
+//            if (session.getAttribute("user_id") != null) {
+//                model.addAttribute("acc_url", req.getHeader("referer"));
+//                BbsDTO bbsDTO = bbsServiceIf.view(idx);
+//
+//                //이거 안해주면 jsp에 값 안넘어온다
+//                model.addAttribute("idx", idx);
+//                model.addAttribute("bbs", bbsDTO);
+//                log.info("============================");
+//                return "/bbs/modify?idx="+idx;
+//            } else {
+//                return "redirect:/login/login";
+//            }
+//        }
+//
+//        else {
+//            model.addAttribute("acc_url", req.getHeader("referer"));
+//
+//            log.info("==============================");
+//            BbsDTO bbsDTO = bbsServiceIf.view(idx);
+//
+//            //이거 안해주면 jsp에 값 안넘어온다
+//            model.addAttribute("idx", idx);
+//            model.addAttribute("bbs", bbsDTO);
+//            log.info("============================");
+//            return "/bbs/modify?idx="+idx;
+//        }
 
         BbsDTO bbsDTO = bbsServiceIf.view(idx);
 

@@ -28,12 +28,12 @@ public class LoginController {
     @RequestMapping(value="/login", method={RequestMethod.GET})
     public String loginGET(HttpServletRequest req,
                          LoginDTO loginDTO,
+                         MemberDTO memberDTO,
                          Model model) {
         log.info("==============================");
         log.info("LoginController >> loginGET()");
 
         String auto_user_id = "";
-        String pwd = "";
 
         HttpSession session = req.getSession();
 
@@ -42,13 +42,10 @@ public class LoginController {
             if (c.getName().equals("auto_user_id")) {
                 auto_user_id = c.getValue();
             }
-            if (c.getName().equals("pwd")) {
-                pwd = c.getValue();
-            }
         }
 
-        if (auto_user_id != null && pwd != null) {
-            MemberDTO loginMemberDTO = loginServiceIf.login_info(auto_user_id, pwd);
+        if (auto_user_id != null) {
+            MemberDTO loginMemberDTO = loginServiceIf.login_cookie(auto_user_id);
             if (loginMemberDTO != null) {
                 model.addAttribute("member", loginMemberDTO);
                 session.setAttribute("user_id", auto_user_id);
@@ -103,6 +100,7 @@ public class LoginController {
             //(false) : 없더라도 생성안함. 그냥 세션만 리턴(null)
             session.setAttribute("user_id", loginDTO.getUser_id());
             session.setAttribute("loginInfo", loginMemberDTO);
+            log.info(session.getAttribute("loginInfo"));
             model.addAttribute("loginInfo", loginMemberDTO);
             if (req.getParameter("save_id") != null && req.getParameter("save_id").equals("Y")) {
                 Cookie cookie1 = new Cookie("save_id", "checked");
@@ -138,16 +136,16 @@ public class LoginController {
                 cookie1.setMaxAge(60*60*24);
                 res.addCookie(cookie1);
 
-                Cookie cookie2 = new Cookie("pwd", loginDTO.getPwd());
-                cookie2.setDomain("");
-                cookie2.setPath("/");
-                cookie2.setMaxAge(60*60*24);
-                res.addCookie(cookie2);
+//                Cookie cookie2 = new Cookie("pwd", loginDTO.getPwd());
+//                cookie2.setDomain("");
+//                cookie2.setPath("/");
+//                cookie2.setMaxAge(60*60*24);
+//                res.addCookie(cookie2);
             }
             return "redirect:"+ acc_url;
         }
         else {
-            redirectAttributes.addFlashAttribute("errors['err_user_info]", "사용자 정보가 일치하지 않습니다.");
+            redirectAttributes.addFlashAttribute("error_login", "사용자 정보가 일치하지 않습니다.");
             return "redirect:/login/login";
         }
     }

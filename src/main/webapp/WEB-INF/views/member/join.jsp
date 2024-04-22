@@ -27,6 +27,7 @@
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="user_id" name="user_id" value="${memberDTO.user_id}">
                 <div id="div_err_user_id" style="display: none"></div>
+                <div id="idError" style="color:red;"> ${idError}</div>
             </div>
         </div>
         <div class="row mb-3">
@@ -48,6 +49,7 @@
             <div class="col-sm-10">
                 <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}">
                 <div id="div_err_email" style="display: none"></div>
+                <div id="emailError" style="color:red;">${emailError}</div>
             </div>
         </div>
 
@@ -61,7 +63,7 @@
         <div class="row mb-3">
             <label for="addr1" class="col-sm-2 col-form-label">주소1</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="addr1" name="addr1" value="${memberDTO.addr1}">
+                <input type="text" class="form-control" id="addr1" name="addr1" onclick="address();" value="${memberDTO.addr1}">
                 <div id="div_err_addr1" style="display: none"></div>
             </div>
         </div>
@@ -126,6 +128,22 @@
         </c:forEach>
 
         console.log(serverValidResult);
+
+
+    </script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function address() {
+            let addr1 = document.getElementById("addr1");
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                    // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                    addr1.value = data.roadAddress;
+                }
+            }).open();
+        }
+
     </script>
 
 

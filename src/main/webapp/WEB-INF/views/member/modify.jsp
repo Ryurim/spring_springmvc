@@ -60,7 +60,7 @@
         <div class="row mb-3">
             <label for="addr1" class="col-sm-2 col-form-label">주소1</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="addr1" name="addr1" value="${memberDTO.addr1}">
+                <input type="text" class="form-control" id="addr1"  name="addr1" onclick="address();" value="${memberDTO.addr1}">
                 <div id="div_err_addr1" style="display: none"></div>
             </div>
         </div>
@@ -128,7 +128,23 @@
 </script>
 
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script>
+    function address() {
+        let addr1 = document.getElementById("addr1");
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                addr1.value = data.roadAddress;
+            }
+        }).open();
+    }
+
+</script>
 
 </body>
 </html>

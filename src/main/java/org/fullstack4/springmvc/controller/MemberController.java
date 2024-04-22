@@ -60,6 +60,9 @@ public class MemberController {
         log.info("============================");
         log.info("MemberController >> joinPOST()");
 
+
+        int result2 = memberServiceIf.getIdCount(memberDTO.getUser_id());
+
         if (bindingResult.hasErrors()) {
             log.info("Errors");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -68,20 +71,28 @@ public class MemberController {
             return "redirect:/member/join";
         }
 
+        if (result2 > 0) {
+            redirectAttributes.addFlashAttribute("idError", "아이디 중복!");
+            redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
+            return "redirect:/member/join";
+        }
+
+
         log.info("memberDTO : " + memberDTO.toString());
 
         int result = memberServiceIf.regist(memberDTO);
 
-//        int result2 = memberServiceIf.getOneByEmail(memberDTO.getEmail());
-//        int result3 = memberServiceIf.getOneByUserId(memberDTO.getUser_id());
 
         log.info("registResult : " + result);
+
         log.info("============================");
+
 
         if (result > 0) {
             return "redirect:/login/login";
         }
         else {
+
             return "redirect:/member/join";
         }
     }
@@ -113,8 +124,6 @@ public class MemberController {
 
             return "redirect:/member/modify?user_id=" + memberDTO.getUser_id();
         }
-
-
 
         int result = memberServiceIf.modify(memberDTO);
         log.info("modifyResult : " + result);

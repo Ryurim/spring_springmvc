@@ -100,7 +100,7 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/bbs/list" class="nav-link px-2 link-secondary">Post Lists</a></li>
-                <li><c:if test="${not empty loginInfo}"><a href="/bbs/regist" class="nav-link px-2 link-dark">Regist Post</a></c:if></li>
+                <li><c:if test="${not empty loginInfo || not empty cookie.auto_user_id}"><a href="/bbs/regist" class="nav-link px-2 link-dark">Regist Post</a></c:if></li>
                 <li><!--a href="#" class="nav-link px-2 link-dark">Pricing</a--></li>
                 <li><!--a href="#" class="nav-link px-2 link-dark">FAQs</a--></li>
                 <li><!--a-- href="#" class="nav-link px-2 link-dark">About</a--></li>
@@ -108,7 +108,7 @@
 
             <div class="col-md-3 text-end">
                 <c:choose>
-                    <c:when test="${not empty loginInfo}">
+                    <c:when test="${not empty loginInfo || not empty cookie.auto_user_id}">
                         <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/login/logout'">Logout</button>
                     </c:when>
                     <c:otherwise>
@@ -117,7 +117,7 @@
                 </c:choose>
 
                 <c:choose>
-                    <c:when test="${not empty loginInfo}">
+                    <c:when test="${not empty loginInfo || not empty cookie.auto_user_id}">
                         <button type="button" class="btn btn-primary" onclick="location.href='/member/view'">MyPage</button>
                     </c:when>
                     <c:otherwise>

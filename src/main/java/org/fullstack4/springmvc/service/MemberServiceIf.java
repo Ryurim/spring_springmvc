@@ -13,7 +13,7 @@ public interface MemberServiceIf {
     int modify(MemberDTO memberDTO);
 
     int delete(String user_id);
-//
-//    int getOneByEmail(String email);
-//    int getOneByUserId(String nickname);
+
+    int getEmailCount(String email);
+    int getIdCount(String nickname);
 }

@@ -119,8 +119,9 @@
             <div>${loginInfo.name}님, 환영합니다!</div>
         </c:if>
 
-        <c:forEach items="${bbsList}" var="dto">
+        <c:forEach items="${responseDTO.dtoList}" var="dto" varStatus="status">
         <a href="/bbs/view?idx=${dto.idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div>${responseDTO.total_count - ((responseDTO.page-1)*responseDTO.page_size + (status.count-1))}</div>
             <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
@@ -131,11 +132,73 @@
             </div>
         </a>
         </c:forEach>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination flex-wrap">
+                <li class="page-item
+            <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>
+        ">
+                    <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
+                    <a class="page-link"
+                       data-num="
+                <c:choose>
+                    <c:when test="${responseDTO.prev_page_flag}">
+                        ${responseDTO.page_block_start-1}
+                    </c:when>
+                    <c:otherwise>1</c:otherwise>
+                </c:choose>"
+                       href="
+                <c:choose>
+                    <c:when test="${responseDTO.prev_page_flag}">
+                        ${responseDTO.linkParams}&page=${responseDTO.page_block_start-1}
+                    </c:when>
+                    <c:otherwise>#</c:otherwise>
+                </c:choose>
+                ">Previous</a>
+                </li>
+                <c:forEach begin="${responseDTO.page_block_start}"
+                           end="${responseDTO.page_block_end}"
+                           var="page_num">
+                    <li class="page-item
+                        <c:if test="${responseDTO.page == page_num}"> active</c:if> ">
+                        <a class="page-link" data-num="${page_num}"
+                           href="<c:choose>
+                            <c:when test="${responseDTO.page == page_num}">#</c:when>
+                            <c:otherwise>
+                                ${responseDTO.linkParams}&page=${page_num}
+                            </c:otherwise>
+                         </c:choose>">${page_num}</a>
+                    </li>
+                </c:forEach>
+                <li class="page-item
+                    <c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
+                    <a class="page-link"
+                       data-num="
+                    <c:choose>
+                        <c:when test="${responseDTO.next_page_flag}">
+                            ${responseDTO.page_block_end+1}
+                        </c:when>
+                        <c:otherwise>
+                            ${responseDTO.page_block_end}
+                        </c:otherwise>
+                    </c:choose>"
+                       href="<c:choose>
+                        <c:when test="${responseDTO.next_page_flag}">
+                            ${responseDTO.linkParams}&page=
+                            ${responseDTO.page_block_end+1}
+                        </c:when>
+                        <c:otherwise>#</c:otherwise>
+                    </c:choose>">Next</a>
+
+                </li>
+            </ul>
+        </nav>
+
         <div class="row footer">
             <!--h1>Footer</h1-->
             <div class="row fixed-=bottom" style="z-index: -100">
                 <footer class="py-1 my-1">
-                    <p class="text-center text-muted">footer</p>
+                    <p class="text-center text-muted">@Copyright rim</p>
                 </footer>
             </div>
         </div>

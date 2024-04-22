@@ -2,6 +2,8 @@ package org.fullstack4.springmvc.sample.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.dto.BbsDTO;
+import org.fullstack4.springmvc.dto.PageRequestDTO;
+import org.fullstack4.springmvc.dto.PageResponseDTO;
 import org.fullstack4.springmvc.service.BbsServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +35,37 @@ public class BbsServiceTests {
         int idx = 10;
         BbsDTO bbsDTO = bbsServiceIf.view(idx);
         log.info(bbsDTO.toString());
+    }
+
+    @Test
+    public void testBbsTotalCount() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .page_size(10)
+                .build();
+
+        int total_count = bbsServiceIf.bbsTotalCount(pageRequestDTO);
+
+        log.info("===============================================");
+        log.info("BbsServiceTests >> testBbsTotalCount : " + total_count);
+        log.info("===============================================");
+    }
+
+    @Test
+    public void testbbsListByPage() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .page_size(10)
+                .build();
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+
+        log.info("===============================================");
+        log.info("BbsServiceTests >> testbbsListByPage START");
+        responseDTO.getDtoList().forEach(
+                vo->log.info(vo)
+        );
+        log.info("BbsServiceTests >> testbbsListByPage END");
+        log.info("===============================================");
     }
 
 }
