@@ -17,7 +17,9 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations="file:src/main/webapp/WEB-INF/root-context.xml")
 public class BbsMapperTests {
-    @Autowired(required = false) //초기에는 객체 생성하지 말고 사용할 때 만들어
+    @Autowired(required = false)
+    //스프링아 우선은 시작하자마자 객체 주입하지 마. 필요할 때 넣을거야
+    //초기에는 객체 생성하지 말고 사용할 때 만들어
     private BbsMapper bbsMapper;
 
 

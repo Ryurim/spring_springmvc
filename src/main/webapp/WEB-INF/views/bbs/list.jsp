@@ -174,7 +174,7 @@
                     <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
                     <a class="page-link"
                        data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-                       href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
+                       href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-1}</c:when><c:otherwise>${responseDTO.linkParams}&page=1</c:otherwise></c:choose>">Previous</a>
                 </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
                            end="${responseDTO.page_block_end}"

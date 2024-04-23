@@ -38,4 +38,9 @@ public class BbsDTO {
     private LocalDate reg_date; //날짜 체크는 데이터베이스에서 넣을거임
     private LocalDate modify_date;
     private String interest;
+
+    @Builder.Default
+    @PositiveOrZero
+    @Min(value=0)
+    private int reply_cnt=0;
 }
