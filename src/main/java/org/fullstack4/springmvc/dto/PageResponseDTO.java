@@ -86,7 +86,7 @@ public class PageResponseDTO<E> {
     }
 
     public void setPage_block_start() {
-        this.page_block_start = ((int)Math.ceil(this.page/(double)this.page_block_size)*this.page_block_size) + 1;
+        this.page_block_start = ((int)Math.floor(this.page/(double)this.page_block_size)*this.page_block_size) + 1;
     }
 
     public void setPage_block_end() {
