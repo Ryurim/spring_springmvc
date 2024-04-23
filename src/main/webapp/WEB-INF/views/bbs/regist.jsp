@@ -55,13 +55,13 @@
             <label  class="col-sm-2 col-form-label">관심사항</label>
 
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="interest_0" name="interest" value="스포츠">
+                        <input class="form-check-input" type="checkbox" id="interest_0" name="interest" value="스포츠" <c:if test="${bbsDTO.interest.contains('스포츠')}">checked</c:if>>
                         <label class="form-check-label" for="interest_0">
                             스포츠
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox"  id="interest_1" name="interest" value="여행">
+                        <input class="form-check-input" type="checkbox"  id="interest_1" name="interest" value="여행" <c:if test="${bbsDTO.interest.contains('여행')}">checked</c:if>>
                         <label class="form-check-label" for="interest_1">
                             여행
                         </label>
@@ -69,14 +69,14 @@
 
 
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="interest_2" name="interest" value="영화">
+                        <input class="form-check-input" type="checkbox" id="interest_2" name="interest" value="영화" <c:if test="${bbsDTO.interest.contains('영화')}">checked</c:if>>
                         <label class="form-check-label" for="interest_2">
                             영화
                         </label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="interest_3" name="interest" value="음악">
+                        <input class="form-check-input" type="checkbox" id="interest_3" name="interest" value="음악" <c:if test="${bbsDTO.interest.contains('음악')}">checked</c:if>>
                         <label class="form-check-label" for="interest_3">
                             음악
                         </label>

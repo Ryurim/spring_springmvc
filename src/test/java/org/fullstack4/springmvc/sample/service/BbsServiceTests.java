@@ -42,6 +42,10 @@ public class BbsServiceTests {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .page_size(10)
+                .search_type(new String[]{"t", "u"})
+                .search_word("제목")
+                .search_date1("2024-04-07")
+                .search_date2("2024-04-20")
                 .build();
 
         int total_count = bbsServiceIf.bbsTotalCount(pageRequestDTO);
@@ -56,6 +60,10 @@ public class BbsServiceTests {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .page_size(10)
+                .search_type(new String[]{"t", "u"})
+                .search_word("제목")
+                .search_date1("2024-04-07")
+                .search_date2("2024-04-20")
                 .build();
         PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
 

@@ -21,6 +21,11 @@
 <jsp:include page="../header.jsp"/>
 
 <div class="container">
+    <c:set var="linkParams">
+        <c:forEach items="${paramValues.keySet()}" var="key" varStatus="status">
+            <c:if test="${key != 'idx'}"><c:if test="${status.first}">${key}=${param[key]}</c:if><c:if test="${!status.first}">&${key}=${param[key]}</c:if></c:if>
+        </c:forEach>
+    </c:set>
     <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
         <input type="hidden" name="idx" id = "idx" value="${bbs.idx}">
         <table class="table" height="20%">
@@ -52,7 +57,7 @@
             </tbody>
         </table>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <button type="button" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">목록</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="location.href='/bbs/list?${linkParams}'">목록</button>
             <c:if test="${bbs.user_id eq loginInfo.user_id}">
             <button type="button" class="btn btn-primary" onclick="location.href='/bbs/modify?idx=${bbs.idx}'">수정</button>
             <button type="button" class="btn btn-outline-secondary" onclick="goDelete();">삭제</button>

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Log4j2
@@ -25,8 +26,9 @@ public class PageResponseDTO<E> {
 
     private String[] search_type;
     private String search_word;
-    private String search_date1;
-    private String search_date2;
+    private String search_date1="";
+    private String search_date2="";
+    private String search_type_string;
 
     private String linkParams;
 
@@ -52,10 +54,25 @@ public class PageResponseDTO<E> {
         this.prev_page_flag = (this.page_block_start > 1); //이전 페이지가 존재하니?
         this.next_page_flag = (this.total_page > this.page_block_end); //다음 페이지가 존재하니?
         this.dtoList = dtoList;
+        this.search_type = requestDTO.getSearch_type();
+        this.search_word = requestDTO.getSearch_word();
+        this.search_date1 = requestDTO.getSearch_date1();
+        this.search_date2 = requestDTO.getSearch_date2();
 
+        this.search_type_string = search_type !=null ? Arrays.toString(search_type).replace("[", "").replace("]", "") : "";
 
-        this.linkParams = "?page_size" + this.page_size;
+        StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
+        if (search_type != null) {
+            sb.append("&search_type=" + search_type_string + "&search_word=" + search_word);
+        }
+        if (search_date1 != null) {
+            sb.append("&search_date1=" + search_date1);
+        }
+        if (search_date2 != null) {
+            sb.append("&search_date2=" + search_date2);
+        }
 
+        this.linkParams = sb.toString(); //쿼리스트링
         log.info("ResponseDTO END");
         log.info("===============================================");
     }

@@ -26,6 +26,10 @@ public class BbsMapperTests {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .page_size(10)
+                .search_type(new String[]{"t", "u"})
+                .search_word("제목")
+                .search_date1("2024-04-07")
+                .search_date2("2024-04-20")
                 .build();
 
         int totalCount = bbsMapper.bbsTotalCount(pageRequestDTO);
@@ -53,7 +57,7 @@ public class BbsMapperTests {
                 .page(1)
                 .page_size(10)
                 .search_type(new String[]{"t", "u"})
-                .search_word("test")
+                .search_word("제목")
                 .build();
         int total_count = bbsMapper.bbsTotalCount(pageRequestDTO);
         List<BbsVO> bbsList = bbsMapper.bbsListByPage(pageRequestDTO);

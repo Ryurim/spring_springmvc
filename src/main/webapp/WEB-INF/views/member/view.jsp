@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>회원정보 조회</title>
 </head>
 <body>
 <jsp:include page="../header.jsp"/>

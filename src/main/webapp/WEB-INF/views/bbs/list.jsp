@@ -115,17 +115,52 @@
 <%--        </ul>--%>
 <%--    </div>--%>
     <div class="container">
-        <c:if test="${not empty logInfo}">
-            <div>${loginInfo.name}님, 환영합니다!</div>
+        <c:if test="${not empty loginInfo.user_id}">
+            <div>${loginInfo.user_id}님, 환영합니다!</div>
+            <p></p>
         </c:if>
 
+        <form role="search" id="frmSearch">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">검색 범위</label>
+                <div class="col-sm-2">
+                    <input class="form-check-input" type="checkbox" name="search_type" id="search_type1" value="t" <c:if test="${responseDTO['search_type_string'].contains('t')}">checked</c:if>>
+                    <label class="form-check-label" for="search_type1">제목</label>
+                    <input class="form-check-input" type="checkbox" name="search_type" id="search_type2" value="u" <c:if test="${responseDTO['search_type_string'] != 'null' && responseDTO['search_type_string'].contains('u')}">checked</c:if>>
+                    <label for="search_type2">작성자</label>
+                </div>
+                    <div class="col">
+                    <input class="form-check-label" type="search" name="search_word"  id="search_word" placeholder="Search" aria-label="Search" value="${responseDTO.search_word}">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">검색 기간</label>
+                <div class="col-sm-2">
+                <input type="date" class="form-control" name="search_date1" id="search_date1" value="${responseDTO.search_date1}">
+                </div>
+                <div class="col-sm-2">
+                   <span class="justify-content-center">~</span>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" class="form-control" name="search_date2" id="search_date2" value="${responseDTO.search_date2}">
+                </div>
+
+            <div class="col-sm-2">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" id="btnReset" type="reset" onclick="location.href='/bbs/list'">reset</button>
+            </div>
+            </div>
+        </form>
+
         <c:forEach items="${responseDTO.dtoList}" var="dto" varStatus="status">
-        <a href="/bbs/view?idx=${dto.idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <a href="/bbs/view?${responseDTO.linkParams}&page=${responseDTO.page}&idx=${dto.idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
             <div>${responseDTO.total_count - ((responseDTO.page-1)*responseDTO.page_size + (status.count-1))}</div>
             <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
                     <h6 class="mb-0">${dto.title}</h6>
+                    <h6 class="mb-0 opacity-75">작성자 : ${dto.user_id}</h6>
                     <p class="mb-0 opacity-75">${dto.content}</p>
                 </div>
                 <small class="opacity-50 text-nowrap">${dto.display_date}</small>
@@ -134,62 +169,25 @@
         </c:forEach>
 
         <nav aria-label="Page navigation example">
-            <ul class="pagination flex-wrap">
-                <li class="page-item
-            <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>
-        ">
+            <ul class="pagination justify-content-center">
+                <li class="page-item<c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
                     <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
                     <a class="page-link"
-                       data-num="
-                <c:choose>
-                    <c:when test="${responseDTO.prev_page_flag}">
-                        ${responseDTO.page_block_start-1}
-                    </c:when>
-                    <c:otherwise>1</c:otherwise>
-                </c:choose>"
-                       href="
-                <c:choose>
-                    <c:when test="${responseDTO.prev_page_flag}">
-                        ${responseDTO.linkParams}&page=${responseDTO.page_block_start-1}
-                    </c:when>
-                    <c:otherwise>#</c:otherwise>
-                </c:choose>
-                ">Previous</a>
+                       data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
+                       href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
                 </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
                            end="${responseDTO.page_block_end}"
                            var="page_num">
-                    <li class="page-item
-                        <c:if test="${responseDTO.page == page_num}"> active</c:if> ">
+                    <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if>">
                         <a class="page-link" data-num="${page_num}"
-                           href="<c:choose>
-                            <c:when test="${responseDTO.page == page_num}">#</c:when>
-                            <c:otherwise>
-                                ${responseDTO.linkParams}&page=${page_num}
-                            </c:otherwise>
-                         </c:choose>">${page_num}</a>
+                           href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
                     </li>
                 </c:forEach>
-                <li class="page-item
-                    <c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
+                <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
                     <a class="page-link"
-                       data-num="
-                    <c:choose>
-                        <c:when test="${responseDTO.next_page_flag}">
-                            ${responseDTO.page_block_end+1}
-                        </c:when>
-                        <c:otherwise>
-                            ${responseDTO.page_block_end}
-                        </c:otherwise>
-                    </c:choose>"
-                       href="<c:choose>
-                        <c:when test="${responseDTO.next_page_flag}">
-                            ${responseDTO.linkParams}&page=
-                            ${responseDTO.page_block_end+1}
-                        </c:when>
-                        <c:otherwise>#</c:otherwise>
-                    </c:choose>">Next</a>
-
+                       data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
+                       href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
                 </li>
             </ul>
         </nav>
@@ -205,6 +203,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 
 </body>
 </html>
