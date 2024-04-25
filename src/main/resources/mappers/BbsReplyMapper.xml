@@ -11,7 +11,8 @@
     <select id="reply_list" resultType="org.fullstack4.springmvc.domain.BbsReplyVO">
         select idx, bbs_idx, user_id, title, reg_date, modify_date
         from tbl_bbs_reply
-        order by idx desc
+        where bbs_idx=#{bbs_idx}
+        order by idx asc
     </select>
 
     <update id="update_reply_cnt">

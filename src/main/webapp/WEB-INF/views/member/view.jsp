@@ -61,7 +61,7 @@
             <button type="button" class="btn btn-outline-secondary" onclick="location.href='/bbs/list'">목록</button>
 
                 <button type="button" class="btn btn-primary" onclick="location.href='/member/modify?user_id=${memberDTO.user_id}'">수정</button>
-                <button type="button" class="btn btn-outline-secondary" onclick="goDelete();">회원탈퇴</button>
+                <button type="button" class="btn btn-danger" onclick="goDelete();">회원탈퇴</button>
 
         </div>
 

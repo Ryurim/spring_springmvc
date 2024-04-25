@@ -3,10 +3,8 @@ package org.fullstack4.springmvc.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.domain.BbsVO;
-import org.fullstack4.springmvc.dto.BbsDTO;
-import org.fullstack4.springmvc.dto.MemberDTO;
-import org.fullstack4.springmvc.dto.PageRequestDTO;
-import org.fullstack4.springmvc.dto.PageResponseDTO;
+import org.fullstack4.springmvc.dto.*;
+import org.fullstack4.springmvc.service.BbsReplyServiceIf;
 import org.fullstack4.springmvc.service.BbsServiceIf;
 import org.fullstack4.springmvc.service.BbsServiceImpl;
 import org.fullstack4.springmvc.service.LoginServiceIf;
@@ -33,6 +31,7 @@ import java.util.UUID;
 public class BbsController {
     private final BbsServiceIf bbsServiceIf;
     private final LoginServiceIf loginServiceIf;
+    private final BbsReplyServiceIf bbsReplyServiceIf;
 
 //    public BbsController(BbsServiceIf bbsServiceIf) { @RequiredArgsConstructor가 이거 해주는거야!
 //        this.bbsServiceIf = bbsServiceIf;
@@ -81,10 +80,12 @@ public void list(@Valid PageRequestDTO pageRequestDTO,
 
 
         BbsDTO bbsDTO = bbsServiceIf.view(idx);
+        List<BbsReplyDTO> bbsReplyDTOList = bbsReplyServiceIf.reply_list(idx);
 
         //이거 안해주면 jsp에 값 안넘어온다
         model.addAttribute("idx", idx);
         model.addAttribute("bbs", bbsDTO);
+        model.addAttribute("bbsReply", bbsReplyDTOList);
         log.info("========================");
 
     }
@@ -366,6 +367,5 @@ public void list(@Valid PageRequestDTO pageRequestDTO,
 
         return "/bbs/fileUpload2";
     }
-
 
 }

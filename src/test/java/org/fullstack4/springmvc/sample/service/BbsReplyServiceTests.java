@@ -25,14 +25,12 @@ public class BbsReplyServiceTests {
         BbsReplyDTO bbsReplyDTO = BbsReplyDTO.builder()
                 .bbs_idx(51)
                 .user_id("test")
-                .title("제목 테스트")
+                .title("제목 댓글 테스트")
+//                .user_id(null) -> AOP 에서 막아줌
+//                .title(null)
                 .build();
-        int result = bbsReplyServiceIf.replay_regist(bbsReplyDTO);
+        int result = bbsReplyServiceIf.reply_regist(bbsReplyDTO);
     }
 
-//    @Test
-//    public void testReplyUpdateReplyCnt() {
-//        int result = bbsReplyServiceIf.update_reply_cnt(51);
-//    }
 
 }
